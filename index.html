@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A PaymentRequest demo">
     <meta name="theme-color" content="#f4f2ff">
-    <title>Payment Request Demo</title>
+    <title>PaymentDemo</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
   </head>
   <body>
     <h1>Payment Request Demo</h1>
-    <h2>A <a href="https://www.w3.org/TR/payment-request/">Payment Request API</a> Demo using <a href="https://go.wepay.com/">WePay</a></h2>    
+    <h2>A simple <a href="https://www.w3.org/TR/payment-request/">Payment Request API</a> demo</h2>    
     <div id="donate">
       <p>Press the button to make a test payment. <strong>It won't actually charge you!</strong></p> 
       <p>You can enter fake details. Here are some example <a href="https://www.paypalobjects.com/en_US/vhelp/paypalmanager_help/credit_card_numbers.htm">card numbers</a>.</p>
       <button id="donate-button">Try it now!</button>
       <p id="success">Success! We simulated the payment 😉</p>
-      <p id="error">Error! 😫</p>
+      <p id="error">Aw, unable to complete the payment simulation! 😫</p>
     </div>
     <div id="unsupported">
       <p class="warning">Sorry your browser does not appear to support the Payment Request API.</p> 

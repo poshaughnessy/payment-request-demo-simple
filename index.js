@@ -5,10 +5,9 @@ var unsupportedMsg = document.getElementById('unsupported');
 var successMsg = document.getElementById('success');
 var errorMsg = document.getElementById('error');
 
-// Configuration for our payment
-var methodData = [{supportedMethods: ['visa', 'mastercard']}];
-var details = {total: {label: 'Charity donation', amount: {currency: 'GBP', value: '1.00'}}};
-var options = {requestShipping: false, requestPayerEmail: true, requestPayerPhone: false};
+// Configuration for our payment (other payment providers are available too 😄)
+var methodData = [{supportedMethods: ['visa', 'mastercard', 'amex']}];
+var details = {total: {label: 'Test payment', amount: {currency: 'GBP', value: '1.00'}}};
 
 // Check that the Payment Request API is available on this device
 if (window.PaymentRequest) {
@@ -26,10 +25,10 @@ else {
  * Here is where we would send the payment info to the server / payment gateway for processing,
  * but I'm not quite ready to take real money from you yet 😉 Simulating by just waiting 2 secs.
  */
-function processPaymentDetails(paymentDetails) {
+function processPaymentDetails(uiResult) {
   return new Promise(function (resolve) {
     setTimeout(function() {
-      resolve();
+      resolve(uiResult);
     }, 2000);
   });
 }
@@ -43,21 +42,24 @@ function showSuccess() {
 function showError() {
   donateButton.style.display = 'none';
   errorMsg.style.display = 'block';
-  successMsg.style.display = 'inline';
+  successMsg.style.display = 'none';
 }
 
 function onDonateButtonClick() {
 
   // Initialise the PaymentRequest with our configuration
-  var paymentRequest = new PaymentRequest(methodData, details, options);
+  // We could also pass in additional options as a 3rd parameter here, such as:
+  // {requestShipping: true, requestPayerEmail: true, requestPayerPhone: true};
+  var paymentRequest = new PaymentRequest(methodData, details);
 
   // Show the native UI
   paymentRequest.show()
-    .then(function(uiResponse) {
-      processPaymentDetails(uiResponse)
-        .then(function() {
+    .then(function(uiResult) {
+      processPaymentDetails(uiResult)
+        .then(function(uiResult) {
+          uiResult.complete('success');
           showSuccess();
-        });   
+        });
     })
     .catch(function(error) {
       // D'oh. Inform the user the purchase could not be completed...
