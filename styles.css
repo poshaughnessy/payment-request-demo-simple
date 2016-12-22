@@ -45,11 +45,11 @@ p {
   color: white;
   cursor: pointer;
 }
-#success {
-  display: none;
-}
+#success,
 #error {
   display: none;
+  font-weight: bold;
+  margin: 1.5em 0;
 }
 #unsupported {
   display: none;
