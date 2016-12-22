@@ -62,6 +62,7 @@ function onDonateButtonClick() {
         });
     })
     .catch(function(error) {
+      console.warn('Unable to complete purchase', error);
       // D'oh. Inform the user the purchase could not be completed...
       showError();
     });
